@@ -33,7 +33,7 @@ echo "<div class='col-md-12'>";
 echo '<a href="create_fag.php" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span>Opret ny fag</a>';
 
     // read all fag records from the database
-    $stmt = $fag->fagOversigt($from_record_num, $records_per_page);
+    $stmt = $fag->readAll($from_record_num, $records_per_page);
 	 
     // count retrieved records
     $num = $stmt->rowCount();

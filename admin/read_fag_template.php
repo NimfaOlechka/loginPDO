@@ -21,7 +21,7 @@
             echo "<th>Titel</th>";
             echo "<th>Start dato</th>";
             echo "<th>End dato</th>";
-            echo "<th>Uddannelse</th>"; 
+            echo "<th>Uddannelse</th>";             
             echo "<th>Action</th>";           
         echo "</tr>";
      
@@ -38,7 +38,21 @@
                 echo "<td>{$fag_title}</td>";
                 echo "<td>{$startdato}</td>";
                 echo "<td>{$enddato}</td>";
-                echo "<td>{$udd_title}</td>";  
+                $relation->fag_id = $fag_uid;
+                $stmt2 = $relation->read_udd();
+                echo "<td>";
+                echo "<ul>";
+                    while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
+                        extract($row2);
+                        $udd->udd_uid = $udd_id;
+                        $udd->readName();
+                        echo "<li>";
+                        echo $udd->udd_title;
+                        echo "</li>";
+                    }             
+               echo "</ul>";
+                echo "</td>";
+                  
                 echo "<td>"; 
 
                     // edit record button
@@ -58,7 +72,7 @@
         echo "</table>";
      
         $page_url="read_fag.php?";
-        $total_rows = $relation->countAll();
+        $total_rows = $fag->countAll();
      
         // actual paging buttons
         include_once 'paging.php';
