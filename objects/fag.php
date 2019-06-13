@@ -117,8 +117,7 @@ class Fag
 
     public function setUddannelse()
     {
-    	echo "<script>alert('".$this->udd_uid[0]."')</script>";
-
+    	
     	for ($count=0; $count < count($this->udd_uid); $count++) { 
 		
 			//insert query
@@ -139,7 +138,32 @@ class Fag
 	        
 		}
 	    
-	}     	
+	}    
+	public function updateUdd()
+    {
+    	//echo "<script>alert('".$this->udd_uid[0]."')</script>";
+
+    	for ($count=0; $count < count($this->udd_uid); $count++) { 
+		
+			//insert query
+	    	$query = "UPDATE
+		                " . $this->table_name2 . "
+		            SET
+		                udd_id = :udd_uid
+		            WHERE
+                    	fag_uid = :fag_uid";
+		    // prepare the query
+		    $stmt = $this->conn->prepare($query);
+		    // execute the query
+		    $stmt->execute(
+			array(			
+			':udd_uid' => $this->udd_uid[$count]			
+			)
+		);
+	        
+		}
+	    
+	}     	 	
 
     
 

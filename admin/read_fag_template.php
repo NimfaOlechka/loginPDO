@@ -29,9 +29,7 @@
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 
             extract($row);
-            //print row object  - delete at the end
-            // print_r($row);
-     
+                 
             // display user details
             echo "<tr>";
                 echo "<td>{$fag_uid}</td>";
@@ -41,16 +39,16 @@
                 $relation->fag_id = $fag_uid;
                 $stmt2 = $relation->read_udd();
                 echo "<td>";
-                echo "<ul>";
-                    while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
-                        extract($row2);
-                        $udd->udd_uid = $udd_id;
-                        $udd->readName();
-                        echo "<li>";
-                        echo $udd->udd_title;
-                        echo "</li>";
-                    }             
-               echo "</ul>";
+                    echo "<ul>";
+                        while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
+                            extract($row2);
+                            $udd->udd_uid = $udd_id;
+                            $udd->readName();
+                            echo "<li>";
+                            echo $udd->udd_title;
+                            echo "</li>";
+                        }             
+                   echo "</ul>";
                 echo "</td>";
                   
                 echo "<td>"; 

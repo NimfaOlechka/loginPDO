@@ -58,15 +58,7 @@ if ($_POST) {
 			echo "<div class='alert alert-danger' role='alert'>Unable to add ur record. Please try again.</div>";
 
 		}
-
 	}
-
-	
-		
-	    
-
-	
-
 }
 
  
@@ -99,8 +91,9 @@ echo "<div class='col-md-12'>";
 		 
 
 		        <!-- uddannelse 'select' field -->
-		        <tr id="add_udd">
-		            <td>Uddannelse</td>
+		        <tr >
+		            <td >Uddannelse</td>
+		            <td id="add_udd"></td>
 
 		        </tr>   
 

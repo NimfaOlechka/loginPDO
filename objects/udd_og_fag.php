@@ -25,10 +25,7 @@ class Relation
         $stmt->execute();
      
      	// return values
-	    return $stmt;
-        //$row = $stmt->fetch(PDO::FETCH_ASSOC);
-         
-        //$this->udd_id = $row['udd_id'];
+	    return $stmt;        
 	}
 
 	//method to set relationship between class fag and Uddannelse
@@ -55,6 +52,28 @@ class Relation
 		}
 	}
 
+	//method to update information about chosen record
+    public function update()
+    {
+    	$query = "UPDATE
+                    " . $this->table_name . "
+                SET                    
+	                udd_id = :udd_id	                
+                WHERE
+                    fag_uid = :fag_uid";
+     
+        $stmt = $this->conn->prepare($query);     
+          
+        // bind the values
+	    $stmt->bindParam(':udd_id', $this->udd_id);	   
+	    
+        // execute the query
+        if($stmt->execute()){
+            return true;
+        }
+     
+        return false;
+    }
 	// used for paging buttons
 	public function countAll(){
 
