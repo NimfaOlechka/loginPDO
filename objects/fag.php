@@ -139,31 +139,6 @@ class Fag
 		}
 	    
 	}    
-	public function updateUdd()
-    {
-    	//echo "<script>alert('".$this->udd_uid[0]."')</script>";
-
-    	for ($count=0; $count < count($this->udd_uid); $count++) { 
-		
-			//insert query
-	    	$query = "UPDATE
-		                " . $this->table_name2 . "
-		            SET
-		                udd_id = :udd_uid
-		            WHERE
-                    	fag_uid = :fag_uid";
-		    // prepare the query
-		    $stmt = $this->conn->prepare($query);
-		    // execute the query
-		    $stmt->execute(
-			array(			
-			':udd_uid' => $this->udd_uid[$count]			
-			)
-		);
-	        
-		}
-	    
-	}     	 	
 
     
 
@@ -223,33 +198,9 @@ class Fag
         $this->enddato = $row['enddato'];
     }
 
-    public function fagOversigt($from_record_num, $records_per_page)
-    {
-    	//query to read all fag records
-
-    	$query = "SELECT fag_uid, 
-    					 fag_title, 
-    					 startdato, 
-    					 enddato, 
-    					 udd_title
-				FROM udd_og_fag JOIN fag ON udd_og_fag.fag_id = fag.fag_uid JOIN uddannelse ON udd_og_fag.udd_id = uddannelse.udd_uid ORDER BY fag.fag_uid";
-
-		// prepare the query
-	    $stmt = $this->conn->prepare($query);
-
-	    // bind the values
-	   $stmt->bindParam(1, $from_record_num, PDO::PARAM_INT);
-	   $stmt->bindParam(2, $records_per_page, PDO::PARAM_INT);
-
-	   // execute query
-	    $stmt->execute();
-
-	   // return values
-	   return $stmt;
-    }
-
+    
     //method to update information about chosen record
-    public function update()
+    public function update($id)
     {
     	$query = "UPDATE
                     " . $this->table_name . "
@@ -259,7 +210,7 @@ class Fag
 	                startdato = :startdato,
 	                enddato = :enddato
                 WHERE
-                    fag_uid = :fag_uid";
+                    fag_uid = :id";
      
         $stmt = $this->conn->prepare($query);
      
@@ -269,12 +220,13 @@ class Fag
 	    $this->startdato= htmlspecialchars(strip_tags($this->startdato));
 	    $this->enddato = htmlspecialchars(strip_tags($this->enddato));
      
-        // bind parameters
         // bind the values
 	    $stmt->bindParam(':fag_uid', $this->fag_uid);
 	    $stmt->bindParam(':fag_title', $this->fag_title);
 	    $stmt->bindParam(':startdato', $this->startdato);
 	    $stmt->bindParam(':enddato', $this->enddato);
+	    // bind parameters
+        $stmt->bindParam(':id', $id);
      
         // execute the query
         if($stmt->execute()){
@@ -282,6 +234,11 @@ class Fag
         }
      
         return false;
+    }
+
+    public function updateUdd($value)
+    {
+    	# code...
     }
 
     // used for paging users
@@ -317,5 +274,60 @@ class Fag
             return false;
         }
     }
+
+    // read reacord by search term
+    public function search($search_term){
+     
+        // select query
+        $query = "SELECT
+                    fag_uid,
+	                fag_title,
+	                startdato,
+	                enddato
+                FROM
+                    " . $this->table_name . "                    
+                WHERE
+                    fag_uid LIKE ? OR fag_title LIKE ?";
+     
+        // prepare query statement
+        $stmt = $this->conn->prepare( $query );
+     
+        // bind variable values
+        $search_term = "%{$search_term}%";
+        $stmt->bindParam(1, $search_term);
+        $stmt->bindParam(2, $search_term);        
+     
+        // execute query
+        $stmt->execute();
+     
+        // return values from database
+        return $stmt;
+    } 
+
+	public function countAll_BySearch($search_term){
+	     
+	        // select query
+	        $query = "SELECT
+	                    COUNT(*) as total_rows
+	                FROM
+	                    " . $this->table_name . "	                    
+	                WHERE
+	                    fag_uid LIKE ? OR fag_title LIKE ?";
+	     
+	        // prepare query statement
+	        $stmt = $this->conn->prepare( $query );
+	     
+	        // bind variable values
+	        $search_term = "%{$search_term}%";
+	        $stmt->bindParam(1, $search_term);
+	        $stmt->bindParam(2, $search_term);
+	     
+	        $stmt->execute();
+	        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+	     
+	        return $row['total_rows'];
+	   
+	}
+
 }
 ?>

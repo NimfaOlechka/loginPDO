@@ -52,8 +52,8 @@ if($_POST){
     $relation->udd_id = $_POST['udd_uid'];  
  
     // update the record
-    if($fag->update()){
-        $fag->updateUdd();
+    if($fag->update($id)){
+       // $fag->updateUdd();
         echo "<div class='alert alert-success alert-dismissable'>";
             echo "Record was updated.";
         echo "</div>";
@@ -92,12 +92,14 @@ if($_POST){
             <td><input type='date' name='enddato' class='form-control' value='<?php echo $fag->enddato; ?>' /></td>
         </tr>
  
+
         <tr><!-- select drop-down group  -->
             <td>Uddannelse</td>
             <td>              
-            <?php
+            <?php 
+            //TODO: do i need this section at all??? 
                 $stmt = $relation->read_udd();
-                                 
+                               
                 // put them in a select drop-down                
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                     extract($row);
@@ -107,19 +109,18 @@ if($_POST){
                        while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC))
                        {
                           extract($row2);
-                            if ($udd_id == $udd_uid){
-                                echo '<option value="{$udd_uid}" selected>';
+                            if ($udd_uid == $udd_id){
+                                echo '<option value="'.$udd_uid.'" selected>';
                             } else {
-                                 echo '<option value="{$udd_uid}">';
+                                 echo '<option value="'.$udd_uid.'">';
                             }
                             echo $udd_title;
                             echo "</option>";
                        }                    
-                   echo "</select>"; 
-                   //delete relationship     
-                  // echo '<button type="button" name="remove" class="btn btn-danger btn-sm remove"><span class="glyphicon glyphicon-minus"></span></button>';  
+                   echo "</select>";                    
                 }                    
-            ?></td>
+            ?>                
+            </td>
         </tr>
       <tr>
             <td></td>
@@ -130,9 +131,3 @@ if($_POST){
  
     </table>
 </form>
-<?php
- 
- 
-// set page footer
-include_once "layout_foot.php";
-?>

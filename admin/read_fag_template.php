@@ -1,5 +1,5 @@
 <?php
-    // TODO: search form
+    //search form
     echo "<form role='search' action='search.php'>";
         echo "<div class='input-group col-md-3 pull-left margin-right-1em'>";
             $search_value=isset($search_term) ? "value='{$search_term}'" : "";
@@ -10,6 +10,9 @@
         echo "</div>";
     echo "</form>";
 
+    // count retrieved records
+    $num = $stmt->rowCount();
+ 
     // display the table if the number of users retrieved was greater than zero
     if($num>0){
      
@@ -71,7 +74,7 @@
      
         $page_url="read_fag.php?";
         $total_rows = $fag->countAll();
-     
+        //$total_rows = $num;
         // actual paging buttons
         include_once 'paging.php';
     }
