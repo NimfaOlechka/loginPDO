@@ -1,6 +1,6 @@
 <?php
     // display the table if the number of users retrieved was greater than zero
-    if($num>0){
+    if($num >= 0){
      
         echo "<table class='table table-hover table-responsive table-bordered'>";
      
@@ -10,7 +10,7 @@
             echo "<th>Titel</th>";
             echo "<th>Start dato</th>";
             echo "<th>End dato</th>";
-            echo "<th>Uddannelse</th>"; // TODO: DELETE THIS COLUMN HEAD
+            //echo "<th>Uddannelse</th>"; // TODO: DELETE THIS COLUMN HEAD
             echo "<th>Action</th>";                      
         echo "</tr>";
      
@@ -20,14 +20,14 @@
             extract($row);
             //print row object  - delete at the end
             // print_r($row);
-     
+            
             // display user details
             echo "<tr>";
                 echo "<td>{$fag_uid}</td>";
                 echo "<td>{$fag_title}</td>";
                 echo "<td>{$startdato}</td>";
                 echo "<td>{$enddato}</td>";
-                echo "<td>{$udd_id}</td>";     //TODO: DELETE THIS COLUMN   
+              //  echo "<td>{$udd_title}</td>";     //TODO: DELETE THIS COLUMN   
                 echo "<td>"; 
                     // apply for course button
                     echo "<a tilmeld-id='{$fag_uid}' class='btn btn-success tilmeld-object'>";
@@ -39,7 +39,7 @@
      
         echo "</table>";     
         $page_url="read_fag.php?";     
-        
+       
     }
      
     // tell the user there are no courses

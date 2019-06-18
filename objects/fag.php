@@ -8,8 +8,10 @@ class Fag
 	// database connection and table name
     private $conn;
     private $table_name = "fag";
-    private $table_name2 = "udd_og_fag";
-    //object properties
+	private $table_name2 = "udd_og_fag";
+	private $table_name3 = "users";
+	private $table_name4 = "uddannelse";
+	//object properties
     //public $id;
 	public $fag_uid;
 	public $fag_title;
@@ -328,6 +330,44 @@ class Fag
 	        return $row['total_rows'];
 	   
 	}
+	public function readSelected($uud_uid, $email){
+		// select query
+		$query = "SELECT uddannelse.udd_title,
+		fag.fag_title,
+		 fag.fag_uid,
+		  fag.startdato,
+		   fag.enddato
+			FROM ". $this->table_name4 . "
+		INNER JOIN " . $this->table_name2 . " ON udd_og_fag.udd_id = uddannelse.udd_uid 
+		INNER JOIN " . $this->table_name . " ON udd_og_fag.fag_id = fag.fag_uid
+		INNER JOIN " . $this->table_name3 . " ON uddannelse.udd_uid = users.udd_uid
+		WHERE users.udd_uid = ? and users.email = ?
+		ORDER BY Startdato DESC;";
 
+		// prepare the query
+		$stmt = $this->conn->prepare($query);
+
+		// bind the values
+		$stmt->bindParam(1, $uud_uid, PDO::PARAM_INT);
+		$stmt->bindParam(2, $email, PDO::PARAM_INT);
+
+		// execute query
+		$stmt->execute();
+
+		// return values
+		return $stmt;
+
+		/* is the SQL code to see how it will work
+
+		SELECT uddannelse.udd_title,
+		fag.fag_title,
+		fag.fag_uid,fag.startdato,fag.enddato
+		FROM uddannelse
+		INNER JOIN udd_og_fag ON udd_og_fag.udd_id = uddannelse.udd_uid 
+		INNER JOIN fag ON udd_og_fag.fag_id = fag.fag_uid
+		INNER JOIN users ON uddannelse.udd_uid = users.udd_uid
+		WHERE users.udd_uid = 2 AND users.email = 'jakobs@gmail.com'
+        ORDER BY Startdato DESC*/
+	}
 }
 ?>

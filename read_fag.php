@@ -12,6 +12,7 @@ include_once "login_checker.php";
 // include classes
 include_once 'config/database.php';
 include_once 'objects/fag.php';
+include_once 'objects/udd_og_fag.php';
 
  
 // get database connection
@@ -21,6 +22,7 @@ $db = $database->getConnection();
 // initialize objects
 $fag = new Fag($db);
 $udd_uid = $_SESSION['udd_uid']; 
+$email = $_SESSION['email']; 
 // set page title
 $page_title = "Uddannelsesspecifikke fag";
  
@@ -34,8 +36,8 @@ echo "<div class='col-md-12'>";
 //echo '';
 
     // read all fag records from the database
-    $stmt = $fag->readSelected($udd_uid);
-	 
+    //$stmt = $fag->readAll($from_record_num, $records_per_page);
+    $stmt = $fag->readSelected($udd_uid, $email);
     // count retrieved records
     $num = $stmt->rowCount();
  
