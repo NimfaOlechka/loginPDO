@@ -330,7 +330,7 @@ class Fag
 	        return $row['total_rows'];
 	   
 	}
-	public function readSelected($uud_uid, $email){
+	public function readSelected($uud_uid, $id){
 		// select query
 		$query = "SELECT uddannelse.udd_title,
 		fag.fag_title,
@@ -341,7 +341,7 @@ class Fag
 		INNER JOIN " . $this->table_name2 . " ON udd_og_fag.udd_id = uddannelse.udd_uid 
 		INNER JOIN " . $this->table_name . " ON udd_og_fag.fag_id = fag.fag_uid
 		INNER JOIN " . $this->table_name3 . " ON uddannelse.udd_uid = users.udd_uid
-		WHERE users.udd_uid = ? and users.email = ?
+		WHERE users.udd_uid = ? and users.id = ?
 		ORDER BY Startdato DESC;";
 
 		// prepare the query
@@ -349,7 +349,7 @@ class Fag
 
 		// bind the values
 		$stmt->bindParam(1, $uud_uid, PDO::PARAM_INT);
-		$stmt->bindParam(2, $email, PDO::PARAM_INT);
+		$stmt->bindParam(2, $id, PDO::PARAM_INT);
 
 		// execute query
 		$stmt->execute();
@@ -366,7 +366,7 @@ class Fag
 		INNER JOIN udd_og_fag ON udd_og_fag.udd_id = uddannelse.udd_uid 
 		INNER JOIN fag ON udd_og_fag.fag_id = fag.fag_uid
 		INNER JOIN users ON uddannelse.udd_uid = users.udd_uid
-		WHERE users.udd_uid = 2 AND users.email = 'jakobs@gmail.com'
+		WHERE users.udd_uid = 2 AND users.id = 1
         ORDER BY Startdato DESC*/
 	}
 }

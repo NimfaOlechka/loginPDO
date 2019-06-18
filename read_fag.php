@@ -22,7 +22,7 @@ $db = $database->getConnection();
 // initialize objects
 $fag = new Fag($db);
 $udd_uid = $_SESSION['udd_uid']; 
-$email = $_SESSION['email']; 
+$email = $_SESSION['user_id']; 
 // set page title
 $page_title = "Uddannelsesspecifikke fag";
  

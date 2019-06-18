@@ -43,7 +43,7 @@ if($_POST){
 	    $_SESSION['access_level'] = $user->access_level;
 	    $_SESSION['firstname'] = htmlspecialchars($user->firstname, ENT_QUOTES, 'UTF-8') ;
 	    $_SESSION['lastname'] = $user->lastname;
-	    $_SESSION['udd_uid'] = $user->udd_uid;
+		$_SESSION['udd_uid'] = $user->udd_uid;
 	 
 	    // if access level is 'Admin', redirect to admin section
 	    if($user->access_level=='Admin'){
