@@ -27,16 +27,21 @@ $tilmelde = new tilmelde($db);
 // set page title
 //$page_title = "Uddannelsesspecifikke fag";
 
-
-    $tilmelde->users_id=$_POST['users_id'];
-    $tilmelde->fag_uid=$_POST['fag_uid'];
+     $users_id = ($_POST['users_id']);
+	 $fag_uid =  ($_POST['fag_uid']);
+    //$tilmelde->users_id=$_POST['users_id'];
+    //$tilmelde->fag_uid=$_POST['fag_uid'];
 
 if($tilmelde->checker($users_id, $fag_uid)){
 echo "";
 
 
-}else($tilmelde->create()){
-echo 'Succecsfull';
+}else{
+
+if($tilmelde->create()){
+
+echo "Succecsfull tilmelde til 'fag_uid'";
+}
 }
 
 

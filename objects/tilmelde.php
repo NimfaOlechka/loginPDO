@@ -11,6 +11,10 @@ class tilmelde {
     public $fag_uid;
     public $created;
     
+    public function __construct($db){
+        $this->conn = $db;
+    }
+
 
 function checker($fag_uid, $users_id){
 
@@ -21,23 +25,27 @@ function checker($fag_uid, $users_id){
             created
         FROM " . $this->table_name . "
         INNER JOIN " . $this->table_name3 . "
-        ON fag.fag_uid = tilmede.fag_uid
+        ON tilmede.fag_uid = fag.fag_uid 
         WHERE fag_uid = ? and users_id = ?
-        or created >= Startdato
-        
-        LIMIT ?, ?";
+        or created >= fag.Startdato";
 
 // prepare the query
 $stmt = $this->conn->prepare($query);
 
 // bind the values
-$stmt->bindParam(1, $uud_uid, PDO::PARAM_INT);
-$stmt->bindParam(2, $id, PDO::PARAM_INT);
+$stmt->bindParam(1, $fag_uid, PDO::PARAM_INT);
+$stmt->bindParam(2, $users_id, PDO::PARAM_INT);
 // execute query
 $stmt->execute();
 
+if($stmt > 0) {
+    echo "Du er tilmelde ellers er det allrede forsindt";
+}else{
+
+
 // return values
 return $stmt;
+}
 }
 
     function create(){
