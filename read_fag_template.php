@@ -30,9 +30,15 @@
               //  echo "<td>{$udd_title}</td>";     //TODO: DELETE THIS COLUMN   
                 echo "<td>"; 
                     // apply for course button
-                    echo "<a tilmeld-id='{$fag_uid}' class='btn btn-success tilmeld-object'>";
+                    echo "<form action='tilmelde_checker.php' method='post' id='tilmelde'>";
+                    echo "<input type='text' tilmelde-id='{$email}' name='{$email}' hidden>";
+                    echo "<input type='text' tilmelde-id='{$fag_uid}' name='{$fag_uid}' hidden>";
+                    echo "<button class='btn btn-success' type='button' name='submit' value='Tilmeld'>";
+                    //echo "<a tilmeld-id='{$fag_uid}' class='btn btn-success tilmeld-object'>";
                         echo "<span class='glyphicon glyphicon-plus'></span> Tilmeld";
-                    echo "</a>";
+                       // echo "</a>";
+                    echo "</button>";
+                    echo "</form>";
                 echo "</td>";          
             echo "</tr>";
             }
