@@ -19,8 +19,9 @@ class tilmelde {
  function checker(){
 	 
 	// query to check if signup exists
-	$query = "SELECT users_id,fag_uid, created FROM ". $this->table_name;" WHERE fag_uid = ? and users_id = ?";
+	$query = "SELECT users_id,fag_uid, created FROM ". $this->table_name;" WHERE fag_uid = ? AND users_id = ?";
  
+	echo" Second del ";
 	// prepare the query
 	$stmt = $this->conn->prepare( $query );
  
@@ -39,8 +40,8 @@ class tilmelde {
 	$num = $stmt->rowCount();
  
 	// if signup exists, assign values to object properties for easy access and use for php sessions
-	if($num>0){
- 
+	if($num>8){
+		echo" trird del ";
 		// get record details / values
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
  
@@ -48,18 +49,19 @@ class tilmelde {
 		$this->users_id = $row['users_id'];
 		$this->fag_uid = $row['fag_uid'];
 
- 
+		$this->showError($stmt);
 		// return true because signup exists in the database
 		return true;
 	}
- 
+	echo" fours del ";
+	
 	// return false if signup does not exist in the database
 	return false;
 }
 
 // create new user record
 function create(){
- 
+	echo" fifte del ";
 	// to get time stamp for 'created' field
 	$this->created=date('Y-m-d H:i:s');
  
@@ -99,6 +101,44 @@ function create(){
 	    echo "</pre>";
 	}
 
+	public function readSelected($id){
+		// select query
+		$query = "SELECT
+		fag.fag_title,
+		 fag.fag_uid,
+		  fag.startdato,
+		   fag.enddato
+			FROM ". $this->table_name . "
+		INNER JOIN " . $this->table_name2 . " ON tilmelde.users_id = users.id 
+		INNER JOIN " . $this->table_name3 . " ON tilmelde.fag_uid = fag.fag_uid
+		WHERE users.id = ?
+		ORDER BY Startdato DESC;";
+
+		// prepare the query
+		$stmt = $this->conn->prepare($query);
+
+		// bind the values
+		$stmt->bindParam(1, $id, PDO::PARAM_INT);
+
+		// execute query
+		$stmt->execute();
+
+		// return values
+		return $stmt;
+
+		/* is the SQL code to see how it will work
+
+		SELECT uddannelse.udd_title,
+		fag.fag_title,
+		fag.fag_uid,fag.startdato,fag.enddato
+		FROM uddannelse
+		INNER JOIN udd_og_fag ON udd_og_fag.udd_id = uddannelse.udd_uid 
+		INNER JOIN fag ON udd_og_fag.fag_id = fag.fag_uid
+		INNER JOIN users ON uddannelse.udd_uid = users.udd_uid
+		WHERE users.udd_uid = 2 AND users.id = 1
+        ORDER BY Startdato DESC*/
+	}
 }
+
     
     ?>

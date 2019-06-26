@@ -21,8 +21,6 @@ $db = $database->getConnection();
 $tilmelde = new tilmelde($db);
 //$users_id = $_SESSION['users_id'];
 //$fag = $_SESSION['fag_uid'];  
-// set page title
-$page_title = "Uddannelsesspecifikke fag";
 
      //$users_id = ($_POST['users_id']);
 	 //$fag_uid =  ($_POST['fag_uid']);
@@ -30,53 +28,17 @@ $page_title = "Uddannelsesspecifikke fag";
     $tilmelde->fag_uid=$_POST['fag_uid'];
     echo "Først del";
 if($tilmelde->checker()){
-echo "Something wrong ERROR";
-
+echo "Something went wrong maybe you allrede signup to it.";
+header("Location: {$home_url}/read_fag.php");
 
 }else{
 
 if($tilmelde->create()){
 
-echo "Succecsfull tilmelde";
+    echo "Successfully Tilmelde."; 
+    header("Location: {$home_url}/read_fag.php");
 }
 }
 }
-/*
-if($_POST){
- 
-    try{
-     
-        // insert query
-        $query = "INSERT INTO products SET users_id=:users_id, fag_uid=:fag_uid, created=:created";
- 
-        // prepare query for execution
-       // $stmt = $conn->prepare($query);
- 
-        // posted values
-        $user=htmlspecialchars(strip_tags($_POST['users_id']));
-        $fag=htmlspecialchars(strip_tags($_POST['fag_uid']));
- 
-        // bind the parameters
-        $stmt->bindParam(':users_id', $user);
-        $stmt->bindParam(':fag_uid', $fag);
-         
-        // specify when this record was inserted to the database
-        $created=date('Y-m-d H:i:s');
-        $stmt->bindParam(':created', $created);
-         
-        // Execute the query
-        if($stmt->execute()){
-            echo "<div class='alert alert-success'>Record was saved.</div>";
-        }else{
-            echo "<div class='alert alert-danger'>Unable to save record.</div>";
-        }
-         
-    }
-     
-    // show error
-    catch(PDOException $exception){
-        die('ERROR: ' . $exception->getMessage());
-    }
-}*/
 
 ?>

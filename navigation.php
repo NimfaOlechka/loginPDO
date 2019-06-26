@@ -26,7 +26,7 @@
                     <a href="<?php echo $home_url; ?>">Home</a>
                 </li>
                 <li <?php echo $page_title=="Mine fag" ? "class='active'" : ""; ?>>
-                    <a href="<?php echo $home_url; ?>">Mine fag</a>
+                    <a href="<?php echo $home_url; ?>/my_fag.php">Mine fag</a>
                 </li>
                 <!-- highlight for courses related pages -->
                 <li <?php
