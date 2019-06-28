@@ -19,9 +19,7 @@ class tilmelde {
  function checker(){
 	 
 	// query to check if signup exists
-	$query = "SELECT users_id,fag_uid, created FROM ". $this->table_name;" WHERE fag_uid = ? AND users_id = ?";
- 
-	echo" Second del ";
+	$query = "SELECT users_id,fag_uid, created FROM ". $this->table_name ." WHERE fag_uid = ? AND users_id = ?";
 	// prepare the query
 	$stmt = $this->conn->prepare( $query );
  
@@ -40,8 +38,7 @@ class tilmelde {
 	$num = $stmt->rowCount();
  
 	// if signup exists, assign values to object properties for easy access and use for php sessions
-	if($num>8){
-		echo" trird del ";
+	if($num > 0){
 		// get record details / values
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
  
@@ -53,15 +50,15 @@ class tilmelde {
 		// return true because signup exists in the database
 		return true;
 	}
-	echo" fours del ";
+	
 	
 	// return false if signup does not exist in the database
 	return false;
-}
+ }
 
 // create new user record
 function create(){
-	echo" fifte del ";
+
 	// to get time stamp for 'created' field
 	$this->created=date('Y-m-d H:i:s');
  
@@ -92,7 +89,8 @@ function create(){
 	}else{
 		$this->showError($stmt);
 		return false;
-	}	 
+	}
+
 }
 	  //function to show errors if action over object is not succeed
 	  public function showError($stmt){

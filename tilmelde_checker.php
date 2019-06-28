@@ -19,24 +19,17 @@ $db = $database->getConnection();
 
 // initialize objects
 $tilmelde = new tilmelde($db);
-//$users_id = $_SESSION['users_id'];
-//$fag = $_SESSION['fag_uid'];  
 
-     //$users_id = ($_POST['users_id']);
-	 //$fag_uid =  ($_POST['fag_uid']);
     $tilmelde->users_id=$_POST['users_id'];
     $tilmelde->fag_uid=$_POST['fag_uid'];
-    echo "Først del";
+  
 if($tilmelde->checker()){
-echo "Something went wrong maybe you allrede signup to it.";
-header("Location: {$home_url}/read_fag.php");
+header("Location: {$home_url}/read_fag.php?Failed");
 
 }else{
 
 if($tilmelde->create()){
-
-    echo "Successfully Tilmelde."; 
-    header("Location: {$home_url}/read_fag.php");
+    header("Location: {$home_url}/read_fag.php?Successfully");
 }
 }
 }
