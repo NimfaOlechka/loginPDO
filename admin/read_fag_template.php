@@ -22,9 +22,13 @@
         echo "<tr>";
             echo "<th>Fag nr.</th>";
             echo "<th>Titel</th>";
+            echo "<th>Varighed</th>";
             echo "<th>Start dato</th>";
-            echo "<th>End dato</th>";
-            echo "<th>Uddannelse</th>";             
+            echo "<th>End dato</th>"; 
+            echo "<th>Pladser</th>";
+            echo "<th>Tilmeldte</th>";             
+            echo "<th>Ledige</th>";  
+            echo "<th>Uddannelse</th>";               
             echo "<th>Action</th>";           
         echo "</tr>";
      
@@ -36,9 +40,25 @@
             // display user details
             echo "<tr>";
                 echo "<td>{$fag_uid}</td>";
-                echo "<td>{$fag_title}</td>";
+                echo "<td>{$fag_title}</td>";                
+                $d1 = strtotime($startdato);
+                echo "</br>";
+                $d2 = strtotime($enddato);
+                echo "<td>";
+                $diff = abs($d2-$d1);
+                $varighed = floor($diff/86400);
+                echo $varighed +1;
+                echo " dage";
+                echo "</td>";
                 echo "<td>{$startdato}</td>";
                 echo "<td>{$enddato}</td>";
+                echo "<td>{$pladser}</td>";
+                echo "<td>";
+                $num = $tilmelde->count_Elever($fag_uid);
+                echo  $num; 
+                echo "</td>"; 
+                $ledige = $pladser-$num;
+                echo "<td>{$ledige}</td>";   
                 $relation->fag_id = $fag_uid;
                 $stmt2 = $relation->read_udd();
                 echo "<td>";

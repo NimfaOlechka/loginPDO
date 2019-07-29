@@ -10,6 +10,7 @@ include_once '../config/database.php';
 include_once '../objects/fag.php';
 include_once '../objects/udd_og_fag.php';
 include_once '../objects/udd.php';
+include_once '../objects/tilmelde.php';
  
 // get database connection
 $database = new Database();
@@ -19,6 +20,7 @@ $db = $database->getConnection();
 $fag = new Fag($db);
 $relation = new Relation($db);
 $udd = new Uddannelse($db);
+$tilmelde = new tilmelde($db);
  
 // set page title
 $page_title = "Uddannelsesspecifikke fag";

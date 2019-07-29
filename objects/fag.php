@@ -17,6 +17,7 @@ class Fag
 	public $fag_title;
 	public $startdato;
 	public $enddato;
+	public $pladser;
 	public $created;
 
 	//uddannelse property shoud hold chosen values
@@ -41,7 +42,8 @@ class Fag
 	    $query = "SELECT fag_uid, 
 	    				 fag_title,
 	    				 startdato,
-	    				 enddato
+	    				 enddato,
+	    				 pladser
 	            FROM " . $this->table_name . "
 	            WHERE fag_uid = ?";
 	 
@@ -71,6 +73,7 @@ class Fag
 	        $this->fag_title = $row['fag_title'];
 	        $this->startdato = $row['startdato'];
 	        $this->enddato = $row['enddato'];
+	        $this->pladser = $row['pladser'];
 	 
 	        // return true because fag exists in the database
 	        return true;
@@ -90,7 +93,8 @@ class Fag
 	                fag_uid = :fag_uid,
 	                fag_title = :fag_title,
 	                startdato = :startdato,
-	                enddato = :enddato";
+	                enddato = :enddato,
+	                pladser = :pladser";
 
 	    // prepare the query
 	    $stmt = $this->conn->prepare($query);
@@ -100,12 +104,14 @@ class Fag
 	    $this->fag_title=htmlspecialchars(strip_tags($this->fag_title));
 	    $this->startdato= htmlspecialchars(strip_tags($this->startdato));
 	    $this->enddato = htmlspecialchars(strip_tags($this->enddato));
+	    $this->pladser = htmlspecialchars(strip_tags($this->pladser));
 
 	    // bind the values
 	    $stmt->bindParam(':fag_uid', $this->fag_uid);
 	    $stmt->bindParam(':fag_title', $this->fag_title);
 	    $stmt->bindParam(':startdato', $this->startdato);
 	    $stmt->bindParam(':enddato', $this->enddato);
+	    $stmt->bindParam(':pladser', $this->pladser);
 	   
 	    // execute the query, also check if query was successful
 	    if($stmt->execute()){
@@ -151,7 +157,8 @@ class Fag
 	                fag_uid,
 	                fag_title,
 	                startdato,
-	                enddato
+	                enddato,
+	                pladser
 	            FROM " . $this->table_name . "
 	            ORDER BY startdato DESC
 	            LIMIT ?, ?";
@@ -178,7 +185,8 @@ class Fag
 	                fag_uid,
 	                fag_title,
 	                startdato,
-	                enddato
+	                enddato,
+	                pladser
 	            FROM " . $this->table_name . "
 	            WHERE fag_uid = ?
 	            LIMIT 0, 1";
@@ -198,6 +206,7 @@ class Fag
         $this->fag_title = $row['fag_title'];
         $this->startdato = $row['startdato'];
         $this->enddato = $row['enddato'];
+        $this->pladser = $row['pladser'];
     }
 
     
@@ -210,7 +219,8 @@ class Fag
                     fag_uid = :fag_uid,
 	                fag_title = :fag_title,
 	                startdato = :startdato,
-	                enddato = :enddato
+	                enddato = :enddato,
+	                pladser = :pladser
                 WHERE
                     fag_uid = :id";
      
@@ -221,12 +231,14 @@ class Fag
 	    $this->fag_title=htmlspecialchars(strip_tags($this->fag_title));
 	    $this->startdato= htmlspecialchars(strip_tags($this->startdato));
 	    $this->enddato = htmlspecialchars(strip_tags($this->enddato));
+	    $this->pladser = htmlspecialchars(strip_tags($this->pladser));
      
         // bind the values
 	    $stmt->bindParam(':fag_uid', $this->fag_uid);
 	    $stmt->bindParam(':fag_title', $this->fag_title);
 	    $stmt->bindParam(':startdato', $this->startdato);
 	    $stmt->bindParam(':enddato', $this->enddato);
+	    $stmt->bindParam(':pladser', $this->pladser);
 	    // bind parameters
         $stmt->bindParam(':id', $id);
      
@@ -285,7 +297,8 @@ class Fag
                     fag_uid,
 	                fag_title,
 	                startdato,
-	                enddato
+	                enddato,
+	                pladser
                 FROM
                     " . $this->table_name . "                    
                 WHERE

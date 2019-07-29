@@ -7,6 +7,7 @@ include_once '../config/database.php';
 include_once '../objects/fag.php';
 include_once '../objects/udd_og_fag.php';
 include_once '../objects/udd.php';
+include_once '../objects/tilmelde.php';
  
 // instantiate database and product object
 $database = new Database();
@@ -16,7 +17,7 @@ $db = $database->getConnection();
 $fag = new Fag($db);
 $relation = new Relation($db);
 $udd = new Uddannelse($db);
- 
+$tilmelde = new tilmelde($db);
 // get search term
 $search_term=isset($_GET['s']) ? $_GET['s'] : '';
  

@@ -136,6 +136,28 @@ function create(){
 		WHERE users.udd_uid = 2 AND users.id = 1
         ORDER BY Startdato DESC*/
 	}
+
+	public function count_Elever($id)
+	{
+		# funktionen til at tælle tilmeldte elever til kurset
+		// query to read selected records
+	    $query = "SELECT users_id  
+	            FROM " . $this->table_name . "
+	            WHERE fag_uid = ?";
+	 
+	    // prepare query statement
+	    $stmt = $this->conn->prepare( $query );
+	 
+	    // bind limit clause variables
+	    $stmt->bindParam(1, $id, PDO::PARAM_INT);	    
+	 
+	    // execute query
+	    $stmt->execute();
+	 	// get number of rows
+	    $num = $stmt->rowCount();
+	    // return values
+	    return $num;
+	}
 }
 
     

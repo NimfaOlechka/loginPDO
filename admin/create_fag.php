@@ -43,6 +43,7 @@ if ($_POST) {
 	$fag->fag_title = $_POST['fag_title'];
 	$fag->startdato = $_POST['startdato'];
 	$fag->enddato = $_POST['enddato'];
+	$fag->pladser = $_POST['pladser'];
 	$fag->udd_uid = $_POST['udd_uid'];	
 	
 	//create ny record in database
@@ -89,7 +90,10 @@ echo "<div class='col-md-12'>";
 		            <td><input type="date" name="enddato" class='form-control' required /></td>
 		        </tr>		        
 		 
-
+				<tr>
+		            <td>Antal pladser</td>
+		            <td><input type="text" name="pladser" class='form-control' required /></td>
+		        </tr>	
 		        <!-- uddannelse 'select' field -->
 		        <tr >
 		            <td >Uddannelse</td>

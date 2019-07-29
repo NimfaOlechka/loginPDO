@@ -17,7 +17,7 @@ $db = $database->getConnection();
 $user = new User($db);
  
 // set page title
-$page_title = "Users";
+$page_title = "Oversigt over tilmeldte elever";
  
 // include page header HTML
 include_once "layout_head.php";

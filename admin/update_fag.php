@@ -46,6 +46,7 @@ if($_POST){
     $fag->fag_title = $_POST['fag_title'];
     $fag->startdato = $_POST['startdato'];
     $fag->enddato = $_POST['enddato'];
+    $fag->pladser = $_POST['pladser'];
     $fag->udd_uid = $_POST['udd_uid'];
 
     $relation->fag_id = $_POST['fag_uid'];
@@ -90,6 +91,11 @@ if($_POST){
         <tr>
             <td>End dato</td>
             <td><input type='date' name='enddato' class='form-control' value='<?php echo $fag->enddato; ?>' /></td>
+        </tr>
+
+        <tr>
+            <td>Antal pladser</td>
+            <td><input type='text' name='pladser' class='form-control' value='<?php echo $fag->pladser; ?>' /></td>
         </tr>
  
 
