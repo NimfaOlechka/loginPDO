@@ -254,5 +254,113 @@ class User
 	    return false;
 	}
 
+	// check if given access_code exist in the database
+	function accessCodeExists(){
+	 
+	    // query to check if access_code exists
+	    $query = "SELECT id
+	            FROM " . $this->table_name . "
+	            WHERE access_code = ?
+	            LIMIT 0,1";
+	 
+	    // prepare the query
+	    $stmt = $this->conn->prepare( $query );
+	 
+	    // sanitize
+	    $this->access_code=htmlspecialchars(strip_tags($this->access_code));
+	 
+	    // bind given access_code value
+	    $stmt->bindParam(1, $this->access_code);
+	 
+	    // execute the query
+	    $stmt->execute();
+	 
+	    // get number of rows
+	    $num = $stmt->rowCount();
+	 
+	    // if access_code exists
+	    if($num>0){
+	 
+	        // return true because access_code exists in the database
+	        return true;
+	    }
+	 
+	    // return false if access_code does not exist in the database
+	    return false;
+	 
+	}
+
+	// used in forgot password feature
+	function updatePassword(){
+	 
+	    // update query
+	    $query = "UPDATE " . $this->table_name . "
+	            SET password = :password
+	            WHERE access_code = :access_code";
+	 
+	    // prepare the query
+	    $stmt = $this->conn->prepare($query);
+	 
+	    // sanitize
+	    $this->password=htmlspecialchars(strip_tags($this->password));
+	    $this->access_code=htmlspecialchars(strip_tags($this->access_code));
+	 
+	    // bind the values from the form
+	    $password_hash = password_hash($this->password, PASSWORD_BCRYPT);
+	    $stmt->bindParam(':password', $password_hash);
+	    $stmt->bindParam(':access_code', $this->access_code);
+	 
+	    // execute the query
+	    if($stmt->execute()){
+	        return true;
+	    }
+	 
+	    return false;
+	}
+
+	public function readOne()
+    {
+    	//query to read all fag records
+    	$query = "SELECT
+	                id,
+	                firstname,
+	                lastname,
+	                email,
+	                contact_number
+	            FROM " . $this->table_name . "
+	            WHERE id = ?
+	            LIMIT 0, 1";
+
+		// prepare the query
+	    $stmt = $this->conn->prepare($query);
+
+	    // bind the values
+	    $stmt->bindParam(1, $this->id, PDO::PARAM_INT);
+	   
+	    // execute query
+	    $stmt->execute();
+
+	    // return values
+	  	$row = $stmt->fetch(PDO::FETCH_ASSOC);
+     	$this->id = $row['id'];
+        $this->firstname = $row['firstname'];
+        $this->lastname = $row['lastname'];
+        $this->email = $row['email'];
+        $this->contact_number = $row['contact_number'];
+    }
+
+
+	// read reacord by search term
+    public function search($search_term){
+     
+        
+    } 
+
+	public function countAll_BySearch($search_term){
+	     
+	        
+	   
+	}
+
 }
 ?>

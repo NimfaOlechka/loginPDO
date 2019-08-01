@@ -9,13 +9,15 @@ include_once "login_checker.php";
 // include classes
 include_once "config/database.php";
 include_once 'objects/user.php';
-
+include_once "libs/php/utils.php";
+ 
 // get database connection
 $database = new Database();
-$db = $database->getConnection(); 
-
+$db = $database->getConnection();
+ 
 // initialize objects
 $user = new User($db);
+$utils = new Utils();
 
 // include page header HTML
 include_once "layot_head.php";
