@@ -158,7 +158,25 @@ function create(){
 	    // return values
 	    return $num;
 	}
+
+	public function read()
+	{
+		// query to read selected records
+	    $query = "SELECT users_id,
+	    				 fag_uid  
+	            FROM " . $this->table_name . "
+	            ORDER BY created DESC";
+
+	    // prepare the query
+		$stmt = $this->conn->prepare($query);
+		
+		// execute query
+		$stmt->execute();
+
+		// return values
+		return $stmt;
+	}
 }
 
     
-    ?>
+?>
