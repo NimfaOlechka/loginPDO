@@ -95,3 +95,36 @@ div#blueimp-gallery div.modal{ overflow: visible; }
     -webkit-border-radius: 50%;
     border-radius: 50%;
 }
+
+.page{
+    background-color: #C4C3C2;
+}
+
+.page h2{
+    color: #0E38AB;
+    text-align: center;
+}
+.page p {
+    text-align: center;
+}
+.grid-container{
+    display: grid;
+    grid-template-columns:  auto auto auto;
+}
+.kapsule{
+    background-color: #FFFFFF;
+    border: 1px solid #C4C3C2;
+
+}
+.kapsule h3 {
+    color: #FF8387;
+    text-align: center;
+}
+.kapsule a {
+    margin-left: 38%;
+    text-align: center;
+}
+.kontakt{
+    display: grid;
+    grid-template-columns:  auto auto auto auto;
+}
