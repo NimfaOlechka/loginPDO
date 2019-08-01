@@ -95,6 +95,7 @@ class User
 	                password = :password,
 	                udd_uid = :udd_uid,
 	                access_level = :access_level,
+	                access_code = :access_code,
 	                status = :status,
 	                created = :created";
 	 
@@ -110,6 +111,7 @@ class User
 	    $this->password=htmlspecialchars(strip_tags($this->password));
 	    $this->udd_uid=htmlspecialchars(strip_tags($this->udd_uid));
 	    $this->access_level=htmlspecialchars(strip_tags($this->access_level));
+	    $this->access_code=htmlspecialchars(strip_tags($this->access_code));
 	    $this->status=htmlspecialchars(strip_tags($this->status));
 	 
 	    // bind the values
@@ -127,6 +129,7 @@ class User
 	 	$stmt->bindParam(':udd_uid', $this->udd_uid);
 	 	
 	    $stmt->bindParam(':access_level', $this->access_level);
+	    $stmt->bindParam(':access_code', $this->access_code);
 	    $stmt->bindParam(':status', $this->status);
 	    $stmt->bindParam(':created', $this->created);
 	 
@@ -192,6 +195,171 @@ class User
 	 
 	    // return row count
 	    return $num;
+	}
+
+	//setting status to legal user efter email verification
+	function updateStatusByAccessCode(){
+	 
+	    // update query
+	    $query = "UPDATE " . $this->table_name . "
+	            SET status = :status
+	            WHERE access_code = :access_code";
+	 
+	    // prepare the query
+	    $stmt = $this->conn->prepare($query);
+	 
+	    // sanitize
+	    $this->status=htmlspecialchars(strip_tags($this->status));
+	    $this->access_code=htmlspecialchars(strip_tags($this->access_code));
+	 
+	    // bind the values from the form
+	    $stmt->bindParam(':status', $this->status);
+	    $stmt->bindParam(':access_code', $this->access_code);
+	 
+	    // execute the query
+	    if($stmt->execute()){
+	        return true;
+	    }
+	 
+	    return false;
+	}
+
+	// updates access code if user choosed "forgot password" option
+	function updateAccessCode(){
+	 
+	    // update query
+	    $query = "UPDATE
+	                " . $this->table_name . "
+	            SET
+	                access_code = :access_code
+	            WHERE
+	                email = :email";
+	 
+	    // prepare the query
+	    $stmt = $this->conn->prepare($query);
+	 
+	    // sanitize
+	    $this->access_code=htmlspecialchars(strip_tags($this->access_code));
+	    $this->email=htmlspecialchars(strip_tags($this->email));
+	 
+	    // bind the values from the form
+	    $stmt->bindParam(':access_code', $this->access_code);
+	    $stmt->bindParam(':email', $this->email);
+	 
+	    // execute the query
+	    if($stmt->execute()){
+	        return true;
+	    }
+	 
+	    return false;
+	}
+
+	// check if given access_code exist in the database
+	function accessCodeExists(){
+	 
+	    // query to check if access_code exists
+	    $query = "SELECT id
+	            FROM " . $this->table_name . "
+	            WHERE access_code = ?
+	            LIMIT 0,1";
+	 
+	    // prepare the query
+	    $stmt = $this->conn->prepare( $query );
+	 
+	    // sanitize
+	    $this->access_code=htmlspecialchars(strip_tags($this->access_code));
+	 
+	    // bind given access_code value
+	    $stmt->bindParam(1, $this->access_code);
+	 
+	    // execute the query
+	    $stmt->execute();
+	 
+	    // get number of rows
+	    $num = $stmt->rowCount();
+	 
+	    // if access_code exists
+	    if($num>0){
+	 
+	        // return true because access_code exists in the database
+	        return true;
+	    }
+	 
+	    // return false if access_code does not exist in the database
+	    return false;
+	 
+	}
+
+	// used in forgot password feature
+	function updatePassword(){
+	 
+	    // update query
+	    $query = "UPDATE " . $this->table_name . "
+	            SET password = :password
+	            WHERE access_code = :access_code";
+	 
+	    // prepare the query
+	    $stmt = $this->conn->prepare($query);
+	 
+	    // sanitize
+	    $this->password=htmlspecialchars(strip_tags($this->password));
+	    $this->access_code=htmlspecialchars(strip_tags($this->access_code));
+	 
+	    // bind the values from the form
+	    $password_hash = password_hash($this->password, PASSWORD_BCRYPT);
+	    $stmt->bindParam(':password', $password_hash);
+	    $stmt->bindParam(':access_code', $this->access_code);
+	 
+	    // execute the query
+	    if($stmt->execute()){
+	        return true;
+	    }
+	 
+	    return false;
+	}
+
+	public function readOne()
+    {
+    	//query to read all fag records
+    	$query = "SELECT
+	                id,
+	                firstname,
+	                lastname,
+	                email,
+	                contact_number
+	            FROM " . $this->table_name . "
+	            WHERE id = ?
+	            LIMIT 0, 1";
+
+		// prepare the query
+	    $stmt = $this->conn->prepare($query);
+
+	    // bind the values
+	    $stmt->bindParam(1, $this->id, PDO::PARAM_INT);
+	   
+	    // execute query
+	    $stmt->execute();
+
+	    // return values
+	  	$row = $stmt->fetch(PDO::FETCH_ASSOC);
+     	$this->id = $row['id'];
+        $this->firstname = $row['firstname'];
+        $this->lastname = $row['lastname'];
+        $this->email = $row['email'];
+        $this->contact_number = $row['contact_number'];
+    }
+
+
+	// read reacord by search term
+    public function search($search_term){
+     
+        
+    } 
+
+	public function countAll_BySearch($search_term){
+	     
+	        
+	   
 	}
 
 }

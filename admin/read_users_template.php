@@ -9,7 +9,7 @@
             echo "<th>Firstname</th>";
             echo "<th>Lastname</th>";
             echo "<th>Email</th>";
-            echo "<th>Contact Number</th>";
+            echo "<th>Kontakt Nummer</th>";
             echo "<th>Access Level</th>";
         echo "</tr>";
      
