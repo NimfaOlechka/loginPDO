@@ -13,6 +13,9 @@ include_once 'config/database.php';
 include_once 'objects/user.php';
 include_once "libs/php/utils.php";
 
+//Inkludere mail class
+require_once "PHPmailer/Mail.php";
+
  
 // include page header HTML0
 include_once "layot_head.php";
@@ -32,6 +35,9 @@ echo "<div class='col-md-12'>";
 	    $user = new User($db);
 	    $utils = new Utils();
 	 
+	 	//Sender mail med et midlertidigt password
+        $mail = new Mail();
+        $mail->CharSet = "UTF-8";
 	    // set user email to detect if it already exists
 	    $user->email=$_POST['email'];
 	 
@@ -54,7 +60,9 @@ echo "<div class='col-md-12'>";
 			$user->udd_uid=$_POST['udd_uid'];
 			//hidden properties
 			$user->access_level='Customer';
-			$user->status=1;
+			$user->status=0;
+			$access_code=$utils->getToken();
+			$user->access_code = $access_code;
 			 
 			// create the user
 			if($user->create()){
@@ -65,7 +73,7 @@ echo "<div class='col-md-12'>";
 			    $body.="Please click the following link to verify your email and login: {$home_url}verify/?access_code={$access_code}";
 			    $subject="Verification Email";
 			 
-			    if($utils->sendEmailViaPhpMail($send_to_email, $subject, $body)){
+			    if($mail->SendMail( $subject, $body,$send_to_email)){
 			        echo "<div class='alert alert-success'>
 			            Verification link was sent to your email. Click that link to login.
 			        </div>";

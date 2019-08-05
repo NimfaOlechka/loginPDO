@@ -26,9 +26,9 @@ echo "<div class='col-sm-12'>";
  
     // check acess code
 	// get given access code
-	//$access_code=isset($_GET['access_code']) ? $_GET['access_code'] : die("Access code not found.");
+	$access_code=isset($_GET['access_code']) ? $_GET['access_code'] : die("Access code not found.");
 	 
-	$_GET['access_code'] = "KEiyDtE7Y9HrpGqr0VV1b3XjGbnjXmrj";
+	//$_GET['access_code'] = "KEiyDtE7Y9HrpGqr0VV1b3XjGbnjXmrj";
 	
 	// check if access code exists
 	$user->access_code=$access_code;
