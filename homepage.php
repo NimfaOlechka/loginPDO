@@ -3,8 +3,7 @@
 include_once "config/core.php";
  
 // set page title
-$page_title="";
-
+$page_title="Valgfri uddannelsesspecifikke fag";
 
 // include classes
 include_once 'config/database.php';
@@ -13,14 +12,21 @@ include_once 'config/database.php';
 $database = new Database();
 $db = $database->getConnection();
 
+
 // include page header HTML
 include_once 'layot_head.php';
+echo "<div class='container'>";
+  echo "<div class='jumbotron'>";
+    
+  echo "</div>";
+echo "</div>";
 
 echo "<div class='col-md-12'>";
 
 // actual HTML Homepage form
 echo "<div class='page'>";
-    echo "<h2>Valgfri uddannelsesspecifikke fag</h2>";
+
+
     echo "<p>Elev og virksomhed skal evt. i samarbejde med skolen
     tage stilling til, hvilke valgfri uddannelsesspecifikke
     fag de finder hensigtsmæssige i forhold til virksomhedens arbejdsopgaver.
@@ -54,19 +60,20 @@ echo "<div class='page'>";
     echo "<h2>Kontakt personer</h2>";
     echo "<div class='kontakt'>";
     echo "<div class='personer'>";
-       echo "<img class='profile-img' src='image/Ib.jpg' >";
+       echo "<img class='profile-img' src='images/Ib.gif' >";
         echo "<p> Ib wittenhoff haubo <br> Teknologisk Videncenter
          <br> Tlf. +4589503436 <br> Mobil +4520437255 <br> iwje@mercantec.dk</p>";
         echo  "</div>";
         echo "<div class='personer'>";
-       echo "<img class='profile-img' src='image/lapj.jpg' >";
+       echo "<img class='profile-img' src='images/lapj.jpg' >";
         echo "<p> Lars Milter Jensen <br> Teknologisk Videncenter
          <br> Tlf. +4589503476 <br> Mobil +4551324276 <br> lapj@mercantec.dk</p>";
         echo  "</div>";
     echo  "</div>";
 echo "</div>";
    
-    
+// to identify page for paging
+$page_url="homepage.php?";
 echo "</div>";
 echo "<div>";
 echo "<p>Mercantec H.C. Andersens Vej 9, 8800 Viborg <br> Tlf. +4589503300 <br> mercantec@nercantec.dk

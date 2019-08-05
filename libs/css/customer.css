@@ -128,3 +128,8 @@ div#blueimp-gallery div.modal{ overflow: visible; }
     display: grid;
     grid-template-columns:  auto auto auto auto;
 }
+
+.img-logo{
+	background-image: url("images/tester2.png"); 
+	background: green;
+}

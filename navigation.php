@@ -23,7 +23,7 @@
                 <ul class="nav navbar-nav">
                 <!-- link to the "Index" page, highlight if current page is index.php -->
                 <li <?php echo $page_title=="Index" ? "class='active'" : ""; ?>>
-                    <a href="<?php echo $home_url; ?>">Home</a>
+                    <a href="<?php echo $home_url; ?>/homepage.php">Home</a>
                 </li>
                 <li <?php echo $page_title=="Mine fag" ? "class='active'" : ""; ?>>
                     <a href="<?php echo $home_url; ?>/my_fag.php">Mine fag</a>
@@ -56,7 +56,7 @@
             ?>
                 <ul class="nav navbar-nav navbar-right">
                 <li <?php echo $page_title=="Homepage" ? "class=''" : ""; ?>>
-                        <a href="<?php echo $home_url; ?>Homepage"> Home
+                        <a href="<?php echo $home_url; ?>homepage"> Home
                         </a>
                     </li>
                     <li <?php echo $page_title=="Login" ? "class='active'" : ""; ?>>
