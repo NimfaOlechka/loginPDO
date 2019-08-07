@@ -58,7 +58,7 @@ echo "<div class='page'>";
         echo "</div>";
     echo "</div>";
     echo "<h2>Kontakt personer</h2>";
-    echo "<div class='kontakt'>";
+    echo "<div class='kontakt' style='width:1110px;height:215px;overflow:auto'>";
     echo "<div class='personer'>";
        echo "<img class='profile-img' src='images/Ib.gif' >";
         echo "<p> Ib wittenhoff haubo <br> Teknologisk Videncenter
@@ -69,6 +69,11 @@ echo "<div class='page'>";
         echo "<p> Lars Milter Jensen <br> Teknologisk Videncenter
          <br> Tlf. +4589503476 <br> Mobil +4551324276 <br> lapj@mercantec.dk</p>";
         echo  "</div>";
+        echo "<div class='personer'>";
+        echo "<img class='profile-img' src='images/giso.jpg' >";
+         echo "<p> Gitte Sommer Jersen <br> Teknologisk Videncenter
+          <br> Tlf. +89503345 <br> Mobil +4551324276 <br> giso@mercantec.dk</p>";
+         echo  "</div>";
     echo  "</div>";
 echo "</div>";
    

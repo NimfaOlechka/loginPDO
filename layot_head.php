@@ -26,7 +26,7 @@
  
         <?php
         // if given page title is 'Login', do not display the title
-        if(($page_title!="Login")||($page_title!="Homepage")){
+        if($page_title!="Login"){
         ?>
         <div class='col-md-12'>
             <div class="page-header">

@@ -126,10 +126,12 @@ div#blueimp-gallery div.modal{ overflow: visible; }
 }
 .kontakt{
     display: grid;
-    grid-template-columns:  auto auto auto auto;
+    grid-template-columns:  auto auto auto;
 }
 
 .img-logo{
 	background-image: url("images/tester2.png"); 
 	background: green;
 }
+
+  
