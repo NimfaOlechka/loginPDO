@@ -55,7 +55,7 @@
             else{
             ?>
                 <ul class="nav navbar-nav navbar-right">
-                <li <?php echo $page_title=="Homepage" ? "class=''" : ""; ?>>
+                <li <?php echo $page_title=="Homepage" ? "class='active'" : ""; ?>>
                         <a href="<?php echo $home_url; ?>homepage"> Home
                         </a>
                     </li>

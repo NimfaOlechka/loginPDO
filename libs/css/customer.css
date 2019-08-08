@@ -98,6 +98,7 @@ div#blueimp-gallery div.modal{ overflow: visible; }
 
 .page{
     background-color: #C4C3C2;
+    border-radius: 10px;
 }
 
 .page h2{
@@ -109,11 +110,12 @@ div#blueimp-gallery div.modal{ overflow: visible; }
 }
 .grid-container{
     display: grid;
-    grid-template-columns:  auto auto auto;
+    grid-template-columns:  370px 370px 370px;
 }
 .kapsule{
     background-color: #FFFFFF;
     border: 1px solid #C4C3C2;
+    border-radius: 15px;
 
 }
 .kapsule h3 {
@@ -126,12 +128,10 @@ div#blueimp-gallery div.modal{ overflow: visible; }
 }
 .kontakt{
     display: grid;
-    grid-template-columns:  auto auto auto;
+    grid-template-columns:  277px 277px 277px 277px;
 }
 
 .img-logo{
 	background-image: url("images/tester2.png"); 
 	background: green;
 }
-
-  
